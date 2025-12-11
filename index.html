@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#FFE8F5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Baby Tracker ✨</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="stars2"></div>
+
+  <div class="container">
+    <!-- Greeting Header -->
+    <header class="greeting">
+      <div class="greeting-icon" id="greetingIcon">🌙</div>
+      <h1 class="greeting-text" id="greetingText">Good night, Mama</h1>
+      <p class="time-display" id="timeDisplay"></p>
+    </header>
+
+    <!-- Main Form -->
+    <main class="tracker-form">
+
+      <!-- Feeding Section -->
+      <section class="section feeding-section">
+        <div class="section-header">
+          <span class="section-emoji">🍼</span>
+          <h2 class="section-title">Milk</h2>
+        </div>
+
+        <div class="amount-grid">
+          <button class="amount-btn" data-amount="1" type="button">
+            <span class="amount-value">1</span>
+            <span class="amount-unit">oz</span>
+          </button>
+          <button class="amount-btn" data-amount="1.5" type="button">
+            <span class="amount-value">1.5</span>
+            <span class="amount-unit">oz</span>
+          </button>
+          <button class="amount-btn" data-amount="2" type="button">
+            <span class="amount-value">2</span>
+            <span class="amount-unit">oz</span>
+          </button>
+          <button class="amount-btn" data-amount="2.5" type="button">
+            <span class="amount-value">2.5</span>
+            <span class="amount-unit">oz</span>
+          </button>
+          <button class="amount-btn" data-amount="3" type="button">
+            <span class="amount-value">3</span>
+            <span class="amount-unit">oz</span>
+          </button>
+          <button class="amount-btn custom-btn" id="customBtn" type="button">
+            <span class="amount-value">⋯</span>
+            <span class="amount-unit">custom</span>
+          </button>
+        </div>
+
+        <!-- Custom Amount Input (hidden by default) -->
+        <div class="custom-input-wrapper" id="customInputWrapper">
+          <input
+            type="number"
+            id="customAmountInput"
+            class="custom-input"
+            placeholder="Amount in oz"
+            min="0.5"
+            max="20"
+            step="0.5"
+            inputmode="decimal"
+          >
+          <button class="custom-confirm" id="customConfirm" type="button">✓</button>
+        </div>
+      </section>
+
+      <!-- Diaper Section -->
+      <section class="section diaper-section">
+        <div class="section-header">
+          <span class="section-emoji">🧷</span>
+          <h2 class="section-title">Diaper</h2>
+        </div>
+
+        <div class="diaper-grid">
+          <button class="diaper-btn" data-type="pee" type="button">
+            <span class="diaper-emoji">💧</span>
+            <span class="diaper-label">Pee</span>
+          </button>
+          <button class="diaper-btn" data-type="poop" type="button">
+            <span class="diaper-emoji">💩</span>
+            <span class="diaper-label">Poop</span>
+          </button>
+          <button class="diaper-btn" data-type="both" type="button">
+            <span class="diaper-emoji">💧💩</span>
+            <span class="diaper-label">Both</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Summary Section (shows what's selected) -->
+      <div class="selection-summary" id="selectionSummary">
+        <div class="summary-content">
+          <span class="summary-icon">✨</span>
+          <span class="summary-text" id="summaryText">Select feeding or diaper to continue</span>
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <button class="save-btn" id="saveBtn" type="button" disabled>
+        <span class="save-btn-icon">💫</span>
+        <span class="save-btn-text">Save Entry</span>
+      </button>
+
+    </main>
+
+    <!-- Status Toast -->
+    <div class="toast" id="toast">
+      <div class="toast-content">
+        <span class="toast-icon" id="toastIcon">✓</span>
+        <span class="toast-text" id="toastText">Saved!</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
