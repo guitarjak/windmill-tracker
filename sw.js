@@ -1,12 +1,12 @@
 const CACHE_NAME = 'baby-tracker-v1'
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/css/styles.css',
-  '/js/app.js',
-  '/manifest.json',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png'
+  '/windmill-tracker/',
+  '/windmill-tracker/index.html',
+  '/windmill-tracker/css/styles.css',
+  '/windmill-tracker/js/app.js',
+  '/windmill-tracker/manifest.json',
+  '/windmill-tracker/icons/icon-192x192.png',
+  '/windmill-tracker/icons/icon-512x512.png'
 ]
 
 // Install Service Worker
