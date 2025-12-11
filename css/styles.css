@@ -277,20 +277,41 @@ body {
 }
 
 .time-input {
-  padding: var(--space-md);
-  border: 2px solid var(--color-primary);
+  padding: var(--space-lg);
+  border: 3px solid var(--color-primary);
   border-radius: var(--radius-md);
-  font-size: 16px;
+  font-size: 18px;
   font-family: var(--font-body);
+  font-weight: 500;
   color: #5A5A5A;
-  background: rgba(255, 255, 255, 0.95);
+  background: white;
   transition: all var(--transition-quick);
+  min-height: 60px;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+}
+
+.time-input::-webkit-date-and-time-value {
+  text-align: left;
+  padding-left: var(--space-xs);
+}
+
+.time-input::-webkit-datetime-edit {
+  padding: var(--space-xs);
+}
+
+.time-input::-webkit-calendar-picker-indicator {
+  padding: var(--space-xs);
+  font-size: 20px;
+  cursor: pointer;
 }
 
 .time-input:focus {
   outline: none;
   border-color: #FF8BBD;
   box-shadow: var(--glow-pink);
+  background: white;
 }
 
 .time-picker-actions {
@@ -330,6 +351,34 @@ body {
 
 .time-picker-btn.confirm:active {
   transform: scale(0.95);
+}
+
+/* Mobile optimizations for time picker */
+@media (max-width: 430px) {
+  .time-picker-content {
+    max-width: calc(100vw - 32px);
+    padding: var(--space-md);
+  }
+
+  .time-picker-header h3 {
+    font-size: 18px;
+  }
+
+  .time-input-group label {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .time-input {
+    font-size: 17px;
+    min-height: 56px;
+    padding: var(--space-md);
+  }
+
+  .time-picker-btn {
+    padding: var(--space-md) var(--space-sm);
+    font-size: 15px;
+  }
 }
 
 /* ==================
