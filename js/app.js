@@ -9,11 +9,19 @@ const WEBHOOK_URL = 'https://atm.guitarjkp.me/webhook/windmill-tracker'
 // State Management
 let selectedAmount = null
 let selectedDiaperType = null
+let selectedTime = null
 
 // DOM Elements
 const greetingIcon = document.getElementById('greetingIcon')
 const greetingText = document.getElementById('greetingText')
 const timeDisplay = document.getElementById('timeDisplay')
+const timeToggleBtn = document.getElementById('timeToggleBtn')
+const timePickerSection = document.getElementById('timePickerSection')
+const logDate = document.getElementById('logDate')
+const logTime = document.getElementById('logTime')
+const timePickerClose = document.getElementById('timePickerClose')
+const timeCancelBtn = document.getElementById('timeCancelBtn')
+const timeConfirmBtn = document.getElementById('timeConfirmBtn')
 const amountButtons = document.querySelectorAll('.amount-btn')
 const customBtn = document.getElementById('customBtn')
 const customInputWrapper = document.getElementById('customInputWrapper')
@@ -120,8 +128,76 @@ function setupEventListeners() {
     btn.addEventListener('click', handleDiaperClick)
   })
 
+  // Time picker clicks
+  timeToggleBtn.addEventListener('click', openTimePicker)
+  timePickerClose.addEventListener('click', closeTimePicker)
+  timeCancelBtn.addEventListener('click', closeTimePicker)
+  timeConfirmBtn.addEventListener('click', confirmTime)
+
+  // Close time picker on backdrop click
+  timePickerSection.addEventListener('click', (e) => {
+    if (e.target === timePickerSection) closeTimePicker()
+  })
+
   // Save button click
   saveBtn.addEventListener('click', handleSave)
+}
+
+// ===================================
+// TIME PICKER HANDLERS
+// ===================================
+
+function openTimePicker() {
+  timePickerSection.classList.add('show')
+
+  // Pre-fill with current date and time
+  const now = new Date()
+  const year = now.getFullYear()
+  const month = String(now.getMonth() + 1).padStart(2, '0')
+  const day = String(now.getDate()).padStart(2, '0')
+  const hours = String(now.getHours()).padStart(2, '0')
+  const minutes = String(now.getMinutes()).padStart(2, '0')
+
+  logDate.value = `${year}-${month}-${day}`
+  logTime.value = `${hours}:${minutes}`
+
+  setTimeout(() => logDate.focus(), 100)
+}
+
+function closeTimePicker() {
+  timePickerSection.classList.remove('show')
+}
+
+function confirmTime() {
+  const dateStr = logDate.value
+  const timeStr = logTime.value
+
+  if (!dateStr || !timeStr) {
+    showToast('Please select date and time', true)
+    return
+  }
+
+  // Combine date and time into ISO string
+  const dateTime = new Date(`${dateStr}T${timeStr}`)
+  if (isNaN(dateTime.getTime())) {
+    showToast('Invalid date or time', true)
+    return
+  }
+
+  selectedTime = dateTime.toISOString()
+
+  // Update button text to show time is set
+  const timeOnly = timeStr
+  timeToggleBtn.textContent = `⏰ ${timeOnly}`
+  timeToggleBtn.classList.add('active')
+
+  closeTimePicker()
+}
+
+function resetTime() {
+  selectedTime = null
+  timeToggleBtn.textContent = '⏰ Use now'
+  timeToggleBtn.classList.remove('active')
 }
 
 // ===================================
@@ -278,7 +354,7 @@ async function handleSave() {
 
   // Build entry payload
   const entry = {
-    timestamp: new Date().toISOString()
+    timestamp: selectedTime || new Date().toISOString()
   }
 
   // Add feeding data if selected
@@ -367,6 +443,9 @@ function resetForm() {
     customInputWrapper.classList.remove('active')
   }
   customAmountInput.value = ''
+
+  // Reset time
+  resetTime()
 
   // Update UI
   updateUI()

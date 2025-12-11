@@ -24,7 +24,32 @@
       <div class="greeting-icon" id="greetingIcon">🌙</div>
       <h1 class="greeting-text" id="greetingText">Good night, Mama</h1>
       <p class="time-display" id="timeDisplay"></p>
+      <button class="time-toggle-btn" id="timeToggleBtn" type="button">⏰ Use now</button>
     </header>
+
+    <!-- Time Picker (Hidden by default) -->
+    <div class="time-picker-section" id="timePickerSection">
+      <div class="time-picker-content">
+        <div class="time-picker-header">
+          <h3>When did this happen?</h3>
+          <button class="time-picker-close" id="timePickerClose" type="button">✕</button>
+        </div>
+        <div class="time-picker-inputs">
+          <div class="time-input-group">
+            <label for="logDate">Date:</label>
+            <input type="date" id="logDate" class="time-input">
+          </div>
+          <div class="time-input-group">
+            <label for="logTime">Time:</label>
+            <input type="time" id="logTime" class="time-input">
+          </div>
+        </div>
+        <div class="time-picker-actions">
+          <button class="time-picker-btn cancel" id="timeCancelBtn" type="button">Cancel</button>
+          <button class="time-picker-btn confirm" id="timeConfirmBtn" type="button">Set Time</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Main Form -->
     <main class="tracker-form">
