@@ -442,6 +442,69 @@ body {
 }
 
 /* ==================
+   MILK TYPE GRID
+   ================== */
+
+.milk-type-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+.milk-type-btn {
+  position: relative;
+  background: linear-gradient(135deg, #FFF 0%, #FFF8F0 100%);
+  border: 3px solid #E8D4FF;
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  cursor: pointer;
+  font-family: var(--font-display);
+  transition: all var(--transition-quick);
+  box-shadow: var(--shadow-sm);
+  min-height: 80px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.milk-type-btn:active {
+  transform: scale(0.95);
+}
+
+.milk-type-btn.selected {
+  background: linear-gradient(135deg, var(--color-lavender) 0%, #E0CCFF 100%);
+  border-color: #C4A7FF;
+  box-shadow: 0 0 20px rgba(195, 167, 255, 0.4), 0 0 40px rgba(195, 167, 255, 0.2);
+  transform: scale(1.05);
+  animation: pulse-lavender 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-lavender {
+  0%, 100% { box-shadow: 0 0 20px rgba(195, 167, 255, 0.4), 0 0 40px rgba(195, 167, 255, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(195, 167, 255, 0.6), 0 0 60px rgba(195, 167, 255, 0.3); }
+}
+
+.milk-type-emoji {
+  font-size: 32px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.milk-type-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #8B6B8F;
+}
+
+.milk-type-btn.selected .milk-type-label {
+  color: #FFF;
+}
+
+/* ==================
    AMOUNT GRID (Feeding)
    ================== */
 

@@ -7,6 +7,7 @@
 const WEBHOOK_URL = 'https://atm.guitarjkp.me/webhook/windmill-tracker'
 
 // State Management
+let selectedMilkType = null
 let selectedAmount = null
 let selectedDiaperType = null
 let selectedTime = null
@@ -22,6 +23,7 @@ const logTime = document.getElementById('logTime')
 const timePickerClose = document.getElementById('timePickerClose')
 const timeCancelBtn = document.getElementById('timeCancelBtn')
 const timeConfirmBtn = document.getElementById('timeConfirmBtn')
+const milkTypeButtons = document.querySelectorAll('.milk-type-btn')
 const amountButtons = document.querySelectorAll('.amount-btn')
 const customBtn = document.getElementById('customBtn')
 const customInputWrapper = document.getElementById('customInputWrapper')
@@ -105,6 +107,11 @@ async function registerServiceWorker() {
 // ===================================
 
 function setupEventListeners() {
+  // Milk type button clicks
+  milkTypeButtons.forEach(btn => {
+    btn.addEventListener('click', handleMilkTypeClick)
+  })
+
   // Amount button clicks
   amountButtons.forEach(btn => {
     btn.addEventListener('click', handleAmountClick)
@@ -198,6 +205,30 @@ function resetTime() {
   selectedTime = null
   timeToggleBtn.textContent = '⏰ Use now'
   timeToggleBtn.classList.remove('active')
+}
+
+// ===================================
+// MILK TYPE HANDLERS
+// ===================================
+
+function handleMilkTypeClick(e) {
+  const btn = e.currentTarget
+  const type = btn.dataset.milkType
+
+  // If clicking the same button, deselect it
+  if (selectedMilkType === type) {
+    selectedMilkType = null
+    btn.classList.remove('selected')
+  } else {
+    // Deselect all milk type buttons
+    milkTypeButtons.forEach(b => b.classList.remove('selected'))
+
+    // Select this button
+    selectedMilkType = type
+    btn.classList.add('selected')
+  }
+
+  updateUI()
 }
 
 // ===================================
@@ -319,7 +350,18 @@ function updateSummary() {
   let summary = []
 
   if (selectedAmount !== null) {
-    summary.push(`🍼 ${selectedAmount}oz`)
+    let milkIcon = '🍼'
+    let milkLabel = ''
+
+    if (selectedMilkType === 'breast') {
+      milkIcon = '🤱'
+      milkLabel = 'Breast'
+    } else if (selectedMilkType === 'formula') {
+      milkIcon = '🍼'
+      milkLabel = 'Formula'
+    }
+
+    summary.push(`${milkIcon} ${milkLabel ? milkLabel + ' ' : ''}${selectedAmount}oz`)
   }
 
   if (selectedDiaperType !== null) {
@@ -360,6 +402,7 @@ async function handleSave() {
   // Add feeding data if selected
   if (selectedAmount !== null) {
     entry.feeding = {
+      type: selectedMilkType || 'unknown',
       amount: selectedAmount,
       unit: 'oz'
     }
@@ -430,10 +473,12 @@ function showToast(message, isError = false) {
 
 function resetForm() {
   // Clear selections
+  selectedMilkType = null
   selectedAmount = null
   selectedDiaperType = null
 
   // Remove all selected classes
+  milkTypeButtons.forEach(btn => btn.classList.remove('selected'))
   amountButtons.forEach(btn => btn.classList.remove('selected'))
   diaperButtons.forEach(btn => btn.classList.remove('selected'))
   customBtn.classList.remove('selected')
